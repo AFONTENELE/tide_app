@@ -5,210 +5,307 @@
 <title>Maré Hoje - Vila de Maceió</title>
 
 <style>
-    /* ------------------------------------- */
-    /* VARIÁVEIS DE TEMA                     */
-    /* ------------------------------------- */
-    :root {
-        --bg-color: #eef2f3;
-        --text-color: #222;
-        --card-bg: #ffffff;
-        --card-shadow: rgba(0,0,0,0.18);
-        --accent: #0077ff;
+/* =====================================
+    ANIMAÇÃO DO DEGRADÊ
+===================================== */
+@keyframes bgMove {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+}
 
-        --soft-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        --soft-shadow-strong: 0 6px 18px rgba(0,0,0,0.22);
-    }
+/* =====================================
+    TEMA ESCURO (texto branco)
+===================================== */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    animation: fadeIn 0.7s ease;
+    background: #0A0F14;
+    color: #FFFFFF !important;
+}
 
-    .dark-mode {
-        --bg-color: #0d1117;
-        --text-color: #e6edf3;
-        --card-bg: #161b22;
-        --card-shadow: rgba(255,255,255,0.05);
+.container.escuro {
+    color: #FFFFFF !important;
+}
 
-        --soft-shadow: 0 4px 12px rgba(255,255,255,0.05);
-        --soft-shadow-strong: 0 6px 18px rgba(255,255,255,0.08);
-    }
+.container.escuro h2,
+.container.escuro p,
+.container.escuro #msg,
+.container.escuro #lua-nome {
+    color: #FFFFFF !important;
+}
 
-    /* ------------------------------------- */
-    /* ANIMAÇÕES                             */
-    /* ------------------------------------- */
+/* =====================================
+    TEMA CLARO (texto preto)
+===================================== */
+body.light-mode {
+    background: #e6f5ff;
+    color: #000000 !important;
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
+.container.claro {
+    color: #000000 !important;
+}
 
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(8px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+.container.claro h2,
+.container.claro p,
+.container.claro #msg,
+.container.claro #lua-nome {
+    color: #000000 !important;
+}
 
-    @keyframes typing {
-        0% { width: 0; }
-        100% { width: 100%; }
-    }
+/* =====================================
+    BOX COM DEGRADÊ ANIMADO
+===================================== */
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 28px;
+    border-radius: 16px;
 
-    @keyframes gentleFloat {
-        0% { transform: translateY(0); }
-        50% { transform: translateY(-2px); }
-        100% { transform: translateY(0); }
-    }
+    background-size: 300% 300%;
+    animation: bgMove 9s ease-in-out infinite;
 
-    /* ------------------------------------- */
-    /* ESTILOS GERAIS                        */
-    /* ------------------------------------- */
+    transition: background 0.4s ease, color 0.3s ease;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
 
-    body {
-        font-family: Arial, sans-serif;
-        background: var(--bg-color);
-        color: var(--text-color);
-        padding: 20px;
+/* Tema escuro — preto e azul marinho */
+.container.escuro {
+    background: linear-gradient(
+        180deg,
+        #000000,
+        #001933,
+        #003366
+    );
+}
 
-        transition: background 0.35s ease, color 0.35s ease;
-        animation: fadeIn 0.7s ease;
-    }
+/* Tema claro — azul bebê + branco */
+.container.claro {
+    background: linear-gradient(
+        180deg,
+        #ffffff,
+        #b3e5ff,
+        #80d4ff
+    );
+}
 
-    .container {
-        max-width: 500px;
-        margin: auto;
-        background: var(--card-bg);
-        padding: 28px;
-        border-radius: 16px;
+/* =====================================
+    ANIMAÇÕES INTERNAS
+===================================== */
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+@keyframes slideUp { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+@keyframes typing {0%{width:0;} 100%{width:100%;}}
 
-        /* SOMBREAMENTO SUAVE E ELEGANTE */
-        box-shadow: var(--soft-shadow-strong);
+/* =====================================
+    ELEMENTOS INTERNOS
+===================================== */
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    animation: fadeIn 1s ease;
+}
 
-        transition: background 0.35s ease, box-shadow 0.35s ease;
+#msg {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #4FC3F7;
+    width: 0;
+    margin-bottom: 15px;
+    animation: typing 2.2s steps(40) forwards;
+}
 
-        animation: slideUp 0.7s ease;
-    }
+#resultado p, #previsao p {
+    animation: slideUp 0.5s ease;
+    font-size: 18px;
+}
 
-    h2 {
-        text-align: center;
-        color: var(--accent);
-        margin-bottom: 15px;
-        font-weight: 700;
-        animation: fadeIn 1s ease;
-    }
+#lua-emoji {
+    font-size: 70px;
+    margin-bottom: -5px;
+    animation: fadeIn 1s ease;
+}
 
-    #msg {
-        text-align: center;
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 18px;
+/* Imagem da maré - DIMINUÍDA */
+#img-mare {
+    max-width: 80%; /* DIMINUIÇÃO DA FOTO */
+    display: block; /* Garante que a margem automática funcione */
+    margin: 15px auto; /* Centraliza a foto */
+    border-radius: 12px;
+    animation: fadeIn 1s ease;
+}
 
-        /* efeito de digitação suave */
-        white-space: nowrap;
-        overflow: hidden;
-        border-right: 2px solid var(--accent);
-        width: 0;
-        animation: typing 2.2s steps(40) forwards;
-    }
+/* =====================================
+    ESTILO DO INTERRUPTOR (TOGGLE SWITCH)
+===================================== */
+.switch-container {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center; /* Alinha o texto e o switch verticalmente */
+    gap: 10px; /* Espaço entre o texto e o switch */
+    margin-bottom: 15px;
+}
 
-    #resultado p {
-        font-size: 18px;
-        margin: 8px 0;
+.switch-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: inherit; /* Herda a cor do tema */
+}
 
-        animation: slideUp 0.4s ease;
-    }
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
 
-    /* ------------------------------------- */
-    /* BOTÃO COM RELEVO                      */
-    /* ------------------------------------- */
+/* Oculta o checkbox padrão */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
 
-    .toggle-btn {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 15px;
-    }
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
 
-    button {
-        padding: 11px 22px;
-        border-radius: 10px;
-        border: none;
-        background: var(--accent);
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
 
-        /* ANIMAÇÕES SUAVES */
-        transition: 
-            background 0.25s ease,
-            transform 0.15s ease,
-            box-shadow 0.25s ease;
+/* Quando o checkbox está CHECADO (Modo Claro) */
+input:checked + .slider {
+    background-color: #4FC3F7;
+}
 
-        /* RELEVO */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+/* Move o pino/círculo para a direita (Modo Claro) */
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
 
-        animation: gentleFloat 3s ease-in-out infinite;
-    }
+/* =====================================
+    MARCA D'ÁGUA
+===================================== */
+.watermark {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4); /* Cor clara e transparente */
+}
 
-    button:hover {
-        transform: scale(1.04);
-        box-shadow: 0 6px 14px rgba(0,0,0,0.28);
-    }
-
-    button:active {
-        transform: scale(0.97);
-        box-shadow: 0 3px 6px rgba(0,0,0,0.2) inset;
-    }
+body.light-mode .watermark {
+    color: rgba(0, 0, 0, 0.4);
+}
 </style>
-
 </head>
+
 <body>
 
-<div class="container">
+<div id="box" class="container escuro">
 
-    <div class="toggle-btn">
-        <button onclick="alternarModo()">Alternar Modo Claro/Escuro</button>
+    <div class="switch-container">
+        <span class="switch-label">Tema Escuro/Claro</span>
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle" onchange="alternarModo()">
+            <span class="slider"></span>
+        </label>
     </div>
-
     <div id="msg">...</div>
+
+    <div id="lua-box" style="text-align:center; margin-bottom: 20px;">
+        <div id="lua-emoji" style="display:none;"></div>
+        <p id="lua-nome" style="font-weight:bold;"></p>
+    </div>
 
     <h2>Maré de Hoje — Vila de Maceió</h2>
 
     <div id="resultado">Carregando...</div>
 
+    <img id="img-mare" src="">
+
+    <div id="previsao"></div>
 </div>
+
+<footer class="watermark">
+    By Tutu
+</footer>
 
 <script src="dados.js"></script>
 <script src="app.js"></script>
 
 <script>
-/* Modo Escuro */
+/* ==========================================
+    ALTERNA TEMA
+========================================== */
 function alternarModo() {
-    document.body.classList.toggle("dark-mode");
+    const body = document.body;
+    const box = document.getElementById("box");
+    const toggle = document.getElementById("theme-toggle");
 
-    if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("tema", "dark");
+    body.classList.toggle("light-mode");
+
+    if (body.classList.contains("light-mode")) {
+        box.classList.remove("escuro");
+        box.classList.add("claro");
+        localStorage.setItem("tema", "claro");
+        toggle.checked = true;
     } else {
-        localStorage.setItem("tema", "light");
+        box.classList.remove("claro");
+        box.classList.add("escuro");
+        localStorage.setItem("tema", "escuro");
+        toggle.checked = false;
     }
 }
 
-(function aplicarTemaSalvo() {
+/* Mantém tema salvo ao abrir */
+(function () {
     const tema = localStorage.getItem("tema");
-    if (tema === "dark") {
-        document.body.classList.add("dark-mode");
+    const box = document.getElementById("box");
+    const toggle = document.getElementById("theme-toggle");
+
+    if (tema === "claro") {
+        document.body.classList.add("light-mode");
+        box.classList.remove("escuro");
+        box.classList.add("claro");
+        toggle.checked = true;
+    } else {
+        toggle.checked = false;
     }
 })();
+</script>
 
-/* Saudação */
+<script>
+/* ==========================================
+    SAUDAÇÃO
+========================================== */
 (function mensagemSaudacao() {
-    const hora = new Date().getHours();
+    const h = new Date().getHours();
     const msg = document.getElementById("msg");
 
-    let texto = "";
-
-    if (hora >= 5 && hora < 12) {
-        texto = "☀️ Bom dia, Thais!";
-    } else if (hora >= 12 && hora < 18) {
-        texto = "🌤️ Boa tarde, Thais!";
-    } else {
-        texto = "🌙 Boa noite, Thais!";
-    }
-
-    msg.textContent = texto;
+    if (h >= 5 && h < 12) msg.textContent = "☀️ Bom dia, Thais!";
+    else if (h >= 12 && h < 18) msg.textContent = "🌤️ Boa tarde, Thais!";
+    else msg.textContent = "🌙 Boa noite, Thais!";
 })();
 </script>
 
