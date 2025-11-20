@@ -3,8 +3,8 @@ const imgMare = document.getElementById("img-mare");
 const previsaoDiv = document.getElementById("previsao");
 
 // Caminho das fotos CORRIGIDO para sua estrutura
-const FOTO_CHEIA = "imgs/foto2.png"; 
-const FOTO_BAIXA = "imgs/foto1.png"; 
+const FOTO_CHEIA = "imgs/foto1.png"; 
+const FOTO_BAIXA = "imgs/foto2.png"; 
 const MARE_ALTA = 2.5; // Limiar definido aqui para ser usado globalmente
 
 /* ==============================
