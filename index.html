@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <title>Maré Hoje - Vila de Maceió</title>
 
 <style>
@@ -15,81 +16,51 @@
 }
 
 /* =====================================
-    TEMA ESCURO (texto branco)
+    ESTILOS GERAIS E TEMAS
 ===================================== */
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
+    margin: 0; /* Remove margem padrão do navegador */
     animation: fadeIn 0.7s ease;
     background: #0A0F14;
     color: #FFFFFF !important;
+    /* Centraliza verticalmente em telas maiores */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.container.escuro {
-    color: #FFFFFF !important;
-}
+/* TEMA ESCURO */
+.container.escuro { color: #FFFFFF !important; }
+.container.escuro h2, .container.escuro p, .container.escuro #msg, .container.escuro #lua-nome { color: #FFFFFF !important; }
 
-.container.escuro h2,
-.container.escuro p,
-.container.escuro #msg,
-.container.escuro #lua-nome {
-    color: #FFFFFF !important;
-}
-
-/* =====================================
-    TEMA CLARO (texto preto)
-===================================== */
-body.light-mode {
-    background: #e6f5ff;
-    color: #000000 !important;
-}
-
-.container.claro {
-    color: #000000 !important;
-}
-
-.container.claro h2,
-.container.claro p,
-.container.claro #msg,
-.container.claro #lua-nome {
-    color: #000000 !important;
-}
+/* TEMA CLARO */
+body.light-mode { background: #e6f5ff; color: #000000 !important; }
+.container.claro { color: #000000 !important; }
+.container.claro h2, .container.claro p, .container.claro #msg, .container.claro #lua-nome { color: #000000 !important; }
 
 /* =====================================
-    BOX COM DEGRADÊ ANIMADO
+    BOX PRINCIPAL (CONTAINER)
 ===================================== */
 .container {
-    max-width: 500px;
-    margin: auto;
+    width: 95%; /* Ocupa 95% da tela em celulares */
+    max-width: 500px; /* Trava em 500px em desktops */
+    margin: 0 auto; /* Centralização */
     padding: 28px;
     border-radius: 16px;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
 
     background-size: 300% 300%;
     animation: bgMove 9s ease-in-out infinite;
-
     transition: background 0.4s ease, color 0.3s ease;
     box-shadow: 0 6px 18px rgba(0,0,0,0.45);
 }
 
-/* Tema escuro — preto e azul marinho */
-.container.escuro {
-    background: linear-gradient(
-        180deg,
-        #000000,
-        #001933,
-        #003366
-    );
-}
-
-/* Tema claro — azul bebê + branco */
-.container.claro {
-    background: linear-gradient(
-        180deg,
-        #ffffff,
-        #b3e5ff,
-        #80d4ff
-    );
-}
+/* Gradientes */
+.container.escuro { background: linear-gradient(180deg, #000000, #001933, #003366); }
+.container.claro { background: linear-gradient(180deg, #ffffff, #b3e5ff, #80d4ff); }
 
 /* =====================================
     ANIMAÇÕES INTERNAS
@@ -105,6 +76,7 @@ h2 {
     text-align: center;
     margin-bottom: 15px;
     animation: fadeIn 1s ease;
+    line-height: 1.3; /* Melhora leitura se quebrar linha */
 }
 
 #msg {
@@ -115,13 +87,15 @@ h2 {
     white-space: nowrap;
     border-right: 2px solid #4FC3F7;
     width: 0;
-    margin-bottom: 15px;
+    margin: 0 auto 15px auto; /* Centraliza margem */
     animation: typing 2.2s steps(40) forwards;
+    max-width: 100%; /* Evita estourar container */
 }
 
 #resultado p, #previsao p {
     animation: slideUp 0.5s ease;
     font-size: 18px;
+    line-height: 1.5;
 }
 
 #lua-emoji {
@@ -130,53 +104,45 @@ h2 {
     animation: fadeIn 1s ease;
 }
 
-/* Imagem da maré - DIMINUÍDA */
 #img-mare {
-    max-width: 80%; /* DIMINUIÇÃO DA FOTO */
-    display: block; /* Garante que a margem automática funcione */
-    margin: 15px auto; /* Centraliza a foto */
+    max-width: 80%;
+    height: auto; /* Mantém proporção */
+    display: block;
+    margin: 15px auto;
     border-radius: 12px;
     animation: fadeIn 1s ease;
 }
 
 /* =====================================
-    ESTILO DO INTERRUPTOR (TOGGLE SWITCH)
+    SWITCH (BOTÃO TEMA)
 ===================================== */
 .switch-container {
     display: flex;
     justify-content: flex-end; 
-    align-items: center; /* Alinha o texto e o switch verticalmente */
-    gap: 10px; /* Espaço entre o texto e o switch */
+    align-items: center; 
+    gap: 10px; 
     margin-bottom: 15px;
 }
 
 .switch-label {
     font-size: 14px;
     font-weight: bold;
-    color: inherit; /* Herda a cor do tema */
+    color: inherit;
 }
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 50px; /* Levemente menor para mobile */
+    height: 28px;
 }
 
-/* Oculta o checkbox padrão */
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
+.switch input { opacity: 0; width: 0; height: 0; }
 
 .slider {
     position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background-color: #ccc;
     transition: 0.4s;
     border-radius: 34px;
@@ -185,8 +151,8 @@ h2 {
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 20px;
+    width: 20px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -194,28 +160,54 @@ h2 {
     border-radius: 50%;
 }
 
-/* Quando o checkbox está CHECADO (Modo Claro) */
-input:checked + .slider {
-    background-color: #4FC3F7;
-}
-
-/* Move o pino/círculo para a direita (Modo Claro) */
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
+input:checked + .slider { background-color: #4FC3F7; }
+input:checked + .slider:before { transform: translateX(22px); }
 
 /* =====================================
     MARCA D'ÁGUA
 ===================================== */
 .watermark {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px; /* Reduzi um pouco */
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.4); /* Cor clara e transparente */
+    color: rgba(255, 255, 255, 0.4);
+    width: 100%;
 }
+body.light-mode .watermark { color: rgba(0, 0, 0, 0.4); }
 
-body.light-mode .watermark {
-    color: rgba(0, 0, 0, 0.4);
+/* =====================================
+    RESPONSIVIDADE (MOBILE)
+    Ajustes para telas menores que 480px
+===================================== */
+@media (max-width: 480px) {
+    body {
+        padding: 10px; /* Menos padding no body */
+    }
+
+    .container {
+        padding: 20px; /* Menos padding interno */
+        width: 100%; /* Aproveita toda a largura disponível */
+    }
+
+    h2 {
+        font-size: 1.3rem; /* Título um pouco menor */
+    }
+
+    #msg {
+        font-size: 16px; /* Fonte menor para caber a animação de digitação */
+    }
+
+    #lua-emoji {
+        font-size: 50px; /* Lua menor */
+    }
+
+    #img-mare {
+        max-width: 100%; /* Imagem ocupa largura total do container */
+    }
+    
+    .switch-label {
+        font-size: 12px; /* Texto do switch menor */
+    }
 }
 </style>
 </head>
@@ -225,17 +217,18 @@ body.light-mode .watermark {
 <div id="box" class="container escuro">
 
     <div class="switch-container">
-        <span class="switch-label">Tema Escuro/Claro</span>
+        <span class="switch-label">Tema</span>
         <label class="switch">
             <input type="checkbox" id="theme-toggle" onchange="alternarModo()">
             <span class="slider"></span>
         </label>
     </div>
+    
     <div id="msg">...</div>
 
     <div id="lua-box" style="text-align:center; margin-bottom: 20px;">
         <div id="lua-emoji" style="display:none;"></div>
-        <p id="lua-nome" style="font-weight:bold;"></p>
+        <p id="lua-nome" style="font-weight:bold; margin: 5px 0 0 0;"></p>
     </div>
 
     <h2>Maré de Hoje — Vila de Maceió</h2>
@@ -303,6 +296,7 @@ function alternarModo() {
     const h = new Date().getHours();
     const msg = document.getElementById("msg");
 
+    // Texto adaptado para garantir que caiba na animação mobile
     if (h >= 5 && h < 12) msg.textContent = "☀️ Bom dia, Thais!";
     else if (h >= 12 && h < 18) msg.textContent = "🌤️ Boa tarde, Thais!";
     else msg.textContent = "🌙 Boa noite, Thais!";
