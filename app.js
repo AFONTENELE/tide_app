@@ -5,7 +5,7 @@ const previsaoDiv = document.getElementById("previsao");
 // Caminho das fotos CORRIGIDO para sua estrutura
 const FOTO_CHEIA = "imgs/foto2.png"; 
 const FOTO_BAIXA = "imgs/foto1.png"; 
-const MARE_ALTA = 2.0; // Limiar definido aqui para ser usado globalmente
+const MARE_ALTA = 2.5; // Limiar definido aqui para ser usado globalmente
 
 /* ==============================
    CÁLCULO DA FASE DA LUA COM EMOJIS
